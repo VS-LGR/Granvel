@@ -1,4 +1,5 @@
 -- Granvel vehicles + RLS. Run in Supabase SQL editor or via migration tooling.
+-- Depois execute também storage.sql para permitir upload de fotos (bucket vehicle-images).
 
 create extension if not exists "pgcrypto";
 

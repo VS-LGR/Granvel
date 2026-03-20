@@ -36,9 +36,9 @@ export function StaffLoginForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto flex max-w-md flex-col gap-4 rounded-xl border border-white/10 bg-white/5 p-8">
-      <Input name="email" type="email" label="E-mail" autoComplete="username" required />
-      <Input name="password" type="password" label="Senha" autoComplete="current-password" required />
+    <form onSubmit={onSubmit} className="mx-auto flex max-w-md flex-col gap-4 rounded-xl border border-white/15 bg-white/10 p-8 shadow-lg shadow-black/20">
+      <Input fieldVariant="onDark" name="email" type="email" label="E-mail" autoComplete="username" required />
+      <Input fieldVariant="onDark" name="password" type="password" label="Senha" autoComplete="current-password" required />
       {error ? <p className="text-sm text-red-300">{error}</p> : null}
       <Button type="submit" disabled={pending} className="w-full">
         {pending ? "Entrando…" : "Entrar"}

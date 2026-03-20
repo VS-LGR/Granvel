@@ -20,6 +20,7 @@ Site institucional para a concessionária **Granvel**, com foco em conversão (W
 | [`src/styles`](src/styles) | `globals.css` — tokens de cor, motion com `prefers-reduced-motion`, utilitários leves. |
 | [`src/assets`](src/assets) | Placeholder para logos/arquivos estáticos versionados. |
 | [`supabase/schema.sql`](supabase/schema.sql) | DDL + políticas RLS (executar no Supabase). |
+| [`supabase/storage.sql`](supabase/storage.sql) | Bucket público `vehicle-images` + políticas de leitura/escrita para fotos. |
 
 ---
 
@@ -61,6 +62,7 @@ Site institucional para a concessionária **Granvel**, com foco em conversão (W
 | Moeda / km | [`src/lib/format.ts`](src/lib/format.ts) |
 | Slug | [`src/lib/staff/slug.ts`](src/lib/staff/slug.ts) |
 | Login / CRUD staff / revalidação | [`src/lib/staff/actions.ts`](src/lib/staff/actions.ts) |
+| Upload de fotos (Storage) | [`src/lib/staff/upload-images.ts`](src/lib/staff/upload-images.ts) |
 | Proteção `/staff` | [`src/middleware.ts`](src/middleware.ts) |
 
 ---
@@ -99,7 +101,7 @@ Site institucional para a concessionária **Granvel**, com foco em conversão (W
 
 ## Pontos de expansão futura
 
-- **Storage** para upload de fotos (hoje: URLs externas).
+- **Storage**: compressão no cliente, apagar objetos ao remover veículo, ou bucket privado com URLs assinadas.
 - Página de detalhe **`/inventory/[slug]`** + JSON-LD `Product` / `Vehicle`.
 - Webhook / CRM nos CTAs de WhatsApp (UTMs, origem).
 - Política RLS mais restritiva (p.ex. role `staff` em `app_metadata`).

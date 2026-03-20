@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { buildVehicleSlug } from "@/lib/staff/slug";
+import { collectImageFilesFromFormData, uploadVehicleImageFiles } from "@/lib/staff/upload-images";
 
 export async function signOutStaff(): Promise<void> {
   const supabase = await createSupabaseServerClient();
@@ -78,6 +79,12 @@ export async function createVehicle(
   const parsed = parseForm(formData);
   if (parsed.error) return { error: parsed.error };
 
+  const files = collectImageFilesFromFormData(formData);
+  const uploaded = await uploadVehicleImageFiles(supabase, user.id, files);
+  if (uploaded.error) return { error: uploaded.error };
+
+  const image_urls = [...uploaded.urls, ...parsed.payload.image_urls];
+
   const baseSlug = buildVehicleSlug(parsed.payload.brand, parsed.payload.model, parsed.payload.year);
   let slug = baseSlug;
   for (let i = 0; i < 5; i++) {
@@ -97,7 +104,7 @@ export async function createVehicle(
     transmission: parsed.payload.transmission,
     category: parsed.payload.category,
     description: parsed.payload.description,
-    image_urls: parsed.payload.image_urls,
+    image_urls,
     published: parsed.payload.published,
     is_featured_month: parsed.payload.is_featured_month,
     is_promotion: parsed.payload.is_promotion,
@@ -130,6 +137,12 @@ export async function updateVehicle(
   const parsed = parseForm(formData);
   if (parsed.error) return { error: parsed.error };
 
+  const files = collectImageFilesFromFormData(formData);
+  const uploaded = await uploadVehicleImageFiles(supabase, user.id, files);
+  if (uploaded.error) return { error: uploaded.error };
+
+  const image_urls = [...parsed.payload.image_urls, ...uploaded.urls];
+
   const { error } = await supabase
     .from("vehicles")
     .update({
@@ -142,7 +155,7 @@ export async function updateVehicle(
       transmission: parsed.payload.transmission,
       category: parsed.payload.category,
       description: parsed.payload.description,
-      image_urls: parsed.payload.image_urls,
+      image_urls,
       published: parsed.payload.published,
       is_featured_month: parsed.payload.is_featured_month,
       is_promotion: parsed.payload.is_promotion,

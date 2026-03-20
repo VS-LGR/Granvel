@@ -12,7 +12,7 @@ export default async function StaffDashboardPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-12">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="font-[family-name:var(--font-syne)] text-3xl font-semibold">Veículos</h1>
+        <h1 className="font-[family-name:var(--font-syne)] text-3xl font-semibold text-zinc-50">Veículos</h1>
         <div className="flex flex-wrap gap-3">
           <Link
             href="/staff/vehicles/new"

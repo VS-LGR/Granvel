@@ -10,6 +10,7 @@ import {
   vehicleCategories,
 } from "@/config/filters";
 import type { VehicleRow } from "@/lib/types/vehicle";
+import { StaffImageField } from "@/components/staff/staff-image-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SelectField } from "@/components/ui/select";
@@ -35,12 +36,22 @@ export function VehicleForm({ mode }: { mode: Mode }) {
   const defaultCategory = v?.category ?? categoryOptions[0].value;
 
   return (
-    <form action={formAction} className="mx-auto flex max-w-2xl flex-col gap-5">
+    <form action={formAction} encType="multipart/form-data" className="mx-auto flex max-w-2xl flex-col gap-5">
       <div className="grid gap-4 sm:grid-cols-2">
-        <Input name="brand" label="Marca" required defaultValue={v?.brand} />
-        <Input name="model" label="Modelo" required defaultValue={v?.model} />
-        <Input name="year" label="Ano" type="number" required min={1990} max={2035} defaultValue={v?.year} />
+        <Input fieldVariant="onDark" name="brand" label="Marca" required defaultValue={v?.brand} />
+        <Input fieldVariant="onDark" name="model" label="Modelo" required defaultValue={v?.model} />
         <Input
+          fieldVariant="onDark"
+          name="year"
+          label="Ano"
+          type="number"
+          required
+          min={1990}
+          max={2035}
+          defaultValue={v?.year}
+        />
+        <Input
+          fieldVariant="onDark"
           name="price_reais"
           label="Preço (R$)"
           type="number"
@@ -50,8 +61,17 @@ export function VehicleForm({ mode }: { mode: Mode }) {
           defaultValue={v ? v.price_cents / 100 : undefined}
           hint="Use ponto ou vírgula no decimal."
         />
-        <Input name="mileage_km" label="Quilometragem" type="number" required min={0} defaultValue={v?.mileage_km} />
+        <Input
+          fieldVariant="onDark"
+          name="mileage_km"
+          label="Quilometragem"
+          type="number"
+          required
+          min={0}
+          defaultValue={v?.mileage_km}
+        />
         <SelectField
+          fieldVariant="onDark"
           name="fuel"
           label="Combustível"
           required
@@ -59,6 +79,7 @@ export function VehicleForm({ mode }: { mode: Mode }) {
           options={fuelOptions.map((o) => ({ value: o.value, label: o.label }))}
         />
         <SelectField
+          fieldVariant="onDark"
           name="transmission"
           label="Câmbio"
           required
@@ -66,6 +87,7 @@ export function VehicleForm({ mode }: { mode: Mode }) {
           options={transmissionOptions.map((o) => ({ value: o.value, label: o.label }))}
         />
         <SelectField
+          fieldVariant="onDark"
           name="category"
           label="Categoria"
           required
@@ -73,36 +95,59 @@ export function VehicleForm({ mode }: { mode: Mode }) {
           options={categoryOptions}
         />
       </div>
-      <Textarea name="description" label="Descrição" rows={5} defaultValue={v?.description ?? ""} />
       <Textarea
-        name="image_urls"
-        label="URLs de imagem (uma por linha)"
-        rows={4}
-        defaultValue={imageText}
-        hint="Cole links https públicos das fotos."
+        fieldVariant="onDark"
+        name="description"
+        label="Descrição"
+        rows={5}
+        defaultValue={v?.description ?? ""}
       />
-      <div className="flex flex-col gap-3 rounded-lg border border-white/10 bg-white/5 p-4 text-sm">
-        <label className="flex items-center gap-2 text-white">
-          <input type="checkbox" name="published" defaultChecked={v?.published ?? true} className="size-4" />
-          Publicado no site
+      <StaffImageField />
+      <Textarea
+        fieldVariant="onDark"
+        name="image_urls"
+        label="URLs extra (opcional, uma por linha)"
+        rows={3}
+        defaultValue={imageText}
+        hint="Use se ainda tiver fotos hospedadas fora do Supabase. As enviadas acima entram primeiro na galeria."
+      />
+      <div className="flex flex-col gap-3 rounded-lg border border-white/15 bg-white/10 p-4 text-sm text-zinc-100">
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            name="published"
+            defaultChecked={v?.published ?? true}
+            className="size-4 shrink-0 accent-[var(--color-accent)]"
+          />
+          <span>Publicado no site</span>
         </label>
-        <label className="flex items-center gap-2 text-white">
-          <input type="checkbox" name="is_featured_month" defaultChecked={v?.is_featured_month ?? false} className="size-4" />
-          Carro do mês
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            name="is_featured_month"
+            defaultChecked={v?.is_featured_month ?? false}
+            className="size-4 shrink-0 accent-[var(--color-accent)]"
+          />
+          <span>Carro do mês</span>
         </label>
-        <label className="flex items-center gap-2 text-white">
-          <input type="checkbox" name="is_promotion" defaultChecked={v?.is_promotion ?? false} className="size-4" />
-          Promoção
+        <label className="flex cursor-pointer items-center gap-3">
+          <input
+            type="checkbox"
+            name="is_promotion"
+            defaultChecked={v?.is_promotion ?? false}
+            className="size-4 shrink-0 accent-[var(--color-accent)]"
+          />
+          <span>Promoção</span>
         </label>
       </div>
-      {state.error ? <p className="text-sm text-red-300">{state.error}</p> : null}
+      {state.error ? <p className="text-sm font-medium text-red-300">{state.error}</p> : null}
       <div className="flex flex-wrap gap-3">
         <Button type="submit" size="lg">
           Salvar
         </Button>
         <Link
           href="/staff"
-          className="inline-flex min-h-12 items-center rounded-[var(--radius-md)] px-5 text-sm font-medium text-white/70 hover:text-white"
+          className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-md)] border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
         >
           Cancelar
         </Link>
