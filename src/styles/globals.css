@@ -5,10 +5,11 @@
   --color-ink-muted: #343a46;
   --color-paper: #f6f4ef;
   --color-paper-dark: #e8e4db;
-  --color-accent: #a84a1c;
-  --color-accent-hover: #863c16;
+  --color-accent: #e5a245;
+  --color-accent-hover: #d49238;
+  --color-accent-soft: color-mix(in srgb, var(--color-accent) 16%, transparent);
   --color-line: rgba(12, 15, 20, 0.12);
-  --color-glow: rgba(168, 74, 28, 0.38);
+  --color-glow: rgba(229, 162, 69, 0.42);
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
@@ -43,6 +44,7 @@
   --color-paper-dark: var(--color-paper-dark);
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);
+  --color-accent-soft: var(--color-accent-soft);
   --color-line: var(--color-line);
   --font-sans: var(--font-dm-sans);
   --font-display: var(--font-syne);

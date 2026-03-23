@@ -30,7 +30,7 @@ export function SiteHeader() {
           <MobileHeaderMenu />
           <a
             href={whatsappHref()}
-            className="inline-flex min-h-11 max-w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-ring sm:min-h-0 sm:px-4 sm:py-2"
+            className="inline-flex min-h-11 max-w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-ring sm:min-h-0 sm:px-4 sm:py-2"
           >
             WhatsApp
           </a>

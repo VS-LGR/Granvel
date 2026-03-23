@@ -16,7 +16,7 @@ export default async function StaffDashboardPage() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/staff/vehicles/new"
-            className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-white shadow-sm hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-6 text-sm font-semibold text-[var(--color-ink)] shadow-sm hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
           >
             Novo veículo
           </Link>

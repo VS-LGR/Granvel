@@ -48,7 +48,7 @@ export function SiteFooter() {
           </p>
           <a
             href={whatsappHref("Olá, vim pelo site da Granvel.")}
-            className="inline-flex rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] focus-ring"
+            className="inline-flex rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-[var(--color-ink)] hover:bg-[var(--color-accent-hover)] focus-ring"
           >
             Iniciar conversa
           </a>

@@ -12,12 +12,6 @@ import { VehicleGalleryCarousel } from "@/components/sections/vehicle-gallery-ca
 
 type Props = { params: Promise<{ slug: string }> };
 
-/** Destaque comercial nesta página (alinhado à identidade solicitada). */
-const detailCta = {
-  accent: "#E5A245",
-  accentSoft: "rgba(229, 162, 69, 0.14)",
-} as const;
-
 function categoryLabel(cat: string): string {
   if (cat in categoryLabels) return categoryLabels[cat as VehicleCategory];
   return cat;
@@ -76,7 +70,7 @@ export default async function VehicleDetailPage({ params }: Props) {
             <h1 className="mt-2 font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
               {vehicle.brand} {vehicle.model}
             </h1>
-            <p className="mt-4 text-3xl font-bold sm:text-4xl" style={{ color: detailCta.accent }}>
+            <p className="mt-4 text-3xl font-bold text-[var(--color-accent)] sm:text-4xl">
               {formatBRLFromCents(vehicle.price_cents)}
             </p>
             <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">Ficha</h2>
@@ -102,10 +96,7 @@ export default async function VehicleDetailPage({ params }: Props) {
             ) : null}
 
             <div className="mt-10 border-t border-[var(--color-line)] pt-8">
-              <div
-                className="rounded-[var(--radius-lg)] border border-[var(--color-line)] p-6 sm:p-7"
-                style={{ backgroundColor: detailCta.accentSoft }}
-              >
+              <div className="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-[var(--color-accent-soft)] p-6 sm:p-7">
                 <p className="font-[family-name:var(--font-syne)] text-lg font-semibold text-[var(--color-ink)] sm:text-xl">
                   Próximo passo
                 </p>
@@ -115,13 +106,13 @@ export default async function VehicleDetailPage({ params }: Props) {
                 <div className="mt-6 flex flex-col gap-3">
                   <a
                     href={wa}
-                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] bg-[#E5A245] px-5 text-center text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[#D49238] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A245]"
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-5 text-center text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                   >
                     Quero falar sobre este {vehicle.brand} {vehicle.model}
                   </a>
                   <Link
                     href="/inventory"
-                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[#E5A245] bg-white/90 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[#E5A245]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A245]"
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[var(--color-accent)] bg-white/90 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-accent)]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                   >
                     Ver outros veículos no estoque
                   </Link>
