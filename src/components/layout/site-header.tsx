@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { mainNav } from "@/config/navigation";
-import { site, telHref, whatsappHref } from "@/config/site";
+import { whatsappHref } from "@/config/site";
 import { Logo } from "@/components/layout/logo";
 import { MobileHeaderMenu } from "@/components/layout/mobile-header-menu";
 import { Container } from "@/components/ui/container";
@@ -29,14 +29,8 @@ export function SiteHeader() {
         <div className="flex shrink-0 items-center gap-3">
           <MobileHeaderMenu />
           <a
-            href={telHref()}
-            className="hidden rounded-[var(--radius-md)] border border-[var(--color-line)] px-3 py-2 text-sm font-medium text-[var(--color-ink)] transition-colors hover:bg-white focus-ring sm:inline-flex sm:items-center sm:justify-center"
-          >
-            {site.phoneDisplay}
-          </a>
-          <a
             href={whatsappHref()}
-            className="inline-flex min-h-11 items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-ring sm:min-h-0 sm:px-3 sm:py-2"
+            className="inline-flex min-h-11 max-w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-ring sm:min-h-0 sm:px-4 sm:py-2"
           >
             WhatsApp
           </a>

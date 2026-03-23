@@ -74,6 +74,20 @@ export async function fetchVehicleById(
   return normalizeRow(data as Record<string, unknown>);
 }
 
+export async function fetchVehicleBySlug(
+  supabase: SupabaseClient,
+  slug: string,
+): Promise<VehicleRow | null> {
+  const { data, error } = await supabase
+    .from("vehicles")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+  if (error || !data) return null;
+  return normalizeRow(data as Record<string, unknown>);
+}
+
 export async function fetchFeaturedVehicle(
   supabase: SupabaseClient,
 ): Promise<VehicleRow | null> {

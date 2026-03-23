@@ -40,7 +40,8 @@ export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: Veh
           <ul className="mt-[var(--section-stack)] grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {vehicles.map((v) => (
               <li key={v.id}>
-                <Card className="card-lift overflow-hidden">
+                <Link href={`/veiculo/${v.slug}`} className="group block">
+                  <Card className="card-lift h-full overflow-hidden transition-[border-color] group-hover:border-[var(--color-accent)]/35">
                   <div className="relative aspect-[16/10] bg-[var(--color-paper-dark)]">
                     {v.imageUrl ? (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -71,8 +72,10 @@ export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: Veh
                     <p className="text-sm text-[var(--color-ink-muted)]">
                       {formatKm(v.mileageKm)} · {v.fuel} · {v.transmission}
                     </p>
+                    <p className="pt-1 text-xs font-semibold text-[var(--color-accent)] group-hover:underline">Ver fotos e detalhes</p>
                   </div>
                 </Card>
+                </Link>
               </li>
             ))}
           </ul>

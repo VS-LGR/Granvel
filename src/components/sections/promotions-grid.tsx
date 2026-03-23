@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { whatsappHref } from "@/config/site";
 import { promotionsContent } from "@/config/site-content";
 import type { VehicleCardData } from "@/lib/types/vehicle";
@@ -42,38 +43,36 @@ export function PromotionsGrid({ vehicles }: PromotionsGridProps) {
         <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {vehicles.map((v) => (
             <li key={v.id}>
-              <Card className="card-lift overflow-hidden">
-                <div className="relative aspect-[16/10] bg-[var(--color-paper-dark)]">
-                  {v.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={v.imageUrl} alt={`${v.brand} ${v.model}`} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className="flex h-full items-center justify-center text-sm text-[var(--color-ink-muted)]">
-                      Sem foto
-                    </div>
-                  )}
-                  <span className="absolute left-3 top-3">
-                    <Badge tone="accent">Promoção</Badge>
-                  </span>
-                </div>
-                <div className="space-y-2 p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">
-                    {categoryLabel(v.category)} · {v.year}
-                  </p>
-                  <p className="text-lg font-semibold text-[var(--color-ink)]">
-                    {v.brand} {v.model}
-                  </p>
-                  <p className="text-2xl font-bold text-[var(--color-accent)]">{formatBRLFromCents(v.priceCents)}</p>
-                  <p className="text-sm text-[var(--color-ink-muted)]">
-                    {formatKm(v.mileageKm)} · {v.fuel} · {v.transmission}
-                  </p>
-                  <a href={whatsappHref(`Quero a promoção: ${v.brand} ${v.model}.`)}>
-                    <Button className="mt-2 w-full" size="sm">
-                      Garantir oferta
-                    </Button>
-                  </a>
-                </div>
-              </Card>
+              <Link href={`/veiculo/${v.slug}`} className="group block">
+                <Card className="card-lift h-full overflow-hidden transition-[border-color] group-hover:border-[var(--color-accent)]/35">
+                  <div className="relative aspect-[16/10] bg-[var(--color-paper-dark)]">
+                    {v.imageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={v.imageUrl} alt={`${v.brand} ${v.model}`} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-sm text-[var(--color-ink-muted)]">
+                        Sem foto
+                      </div>
+                    )}
+                    <span className="absolute left-3 top-3">
+                      <Badge tone="accent">Promoção</Badge>
+                    </span>
+                  </div>
+                  <div className="space-y-2 p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">
+                      {categoryLabel(v.category)} · {v.year}
+                    </p>
+                    <p className="text-lg font-semibold text-[var(--color-ink)]">
+                      {v.brand} {v.model}
+                    </p>
+                    <p className="text-2xl font-bold text-[var(--color-accent)]">{formatBRLFromCents(v.priceCents)}</p>
+                    <p className="text-sm text-[var(--color-ink-muted)]">
+                      {formatKm(v.mileageKm)} · {v.fuel} · {v.transmission}
+                    </p>
+                    <p className="pt-1 text-xs font-semibold text-[var(--color-accent)] group-hover:underline">Ver fotos e detalhes</p>
+                  </div>
+                </Card>
+              </Link>
             </li>
           ))}
         </ul>

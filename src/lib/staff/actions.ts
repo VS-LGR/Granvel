@@ -118,6 +118,7 @@ export async function createVehicle(
   revalidatePath("/inventory");
   revalidatePath("/highlight");
   revalidatePath("/promotions");
+  revalidatePath("/veiculo", "layout");
   revalidatePath("/staff");
   redirect("/staff");
 }
@@ -169,6 +170,7 @@ export async function updateVehicle(
   revalidatePath("/inventory");
   revalidatePath("/highlight");
   revalidatePath("/promotions");
+  revalidatePath("/veiculo", "layout");
   revalidatePath("/staff");
   redirect("/staff");
 }
