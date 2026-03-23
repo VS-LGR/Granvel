@@ -7,11 +7,16 @@ import { formatBRLFromCents, formatKm } from "@/lib/format";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { fetchVehicleBySlug } from "@/lib/vehicles/queries";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { VehicleGalleryCarousel } from "@/components/sections/vehicle-gallery-carousel";
 
 type Props = { params: Promise<{ slug: string }> };
+
+/** Destaque comercial nesta página (alinhado à identidade solicitada). */
+const detailCta = {
+  accent: "#E5A245",
+  accentSoft: "rgba(229, 162, 69, 0.14)",
+} as const;
 
 function categoryLabel(cat: string): string {
   if (cat in categoryLabels) return categoryLabels[cat as VehicleCategory];
@@ -44,7 +49,9 @@ export default async function VehicleDetailPage({ params }: Props) {
 
   const images = vehicle.image_urls ?? [];
   const title = `${vehicle.brand} ${vehicle.model}`;
-  const wa = whatsappHref(`Tenho interesse no ${vehicle.brand} ${vehicle.model} ${vehicle.year} (site Granvel).`);
+  const wa = whatsappHref(
+    `Olá! Vi o ${vehicle.brand} ${vehicle.model} ${vehicle.year} no site da Granvel e quero mais informações (visita, reserva ou condições).`,
+  );
 
   return (
     <article className="border-b border-[var(--color-line)] bg-[var(--color-paper)] py-[var(--section-y)]">
@@ -69,7 +76,9 @@ export default async function VehicleDetailPage({ params }: Props) {
             <h1 className="mt-2 font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-4xl">
               {vehicle.brand} {vehicle.model}
             </h1>
-            <p className="mt-4 text-3xl font-bold text-[var(--color-accent)] sm:text-4xl">{formatBRLFromCents(vehicle.price_cents)}</p>
+            <p className="mt-4 text-3xl font-bold sm:text-4xl" style={{ color: detailCta.accent }}>
+              {formatBRLFromCents(vehicle.price_cents)}
+            </p>
             <h2 className="mt-8 text-sm font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">Ficha</h2>
             <dl className="mt-3 space-y-2 text-sm">
               <div className="flex justify-between gap-4 border-b border-[var(--color-line)] py-2">
@@ -91,17 +100,33 @@ export default async function VehicleDetailPage({ params }: Props) {
                 <p className="mt-3 text-base leading-relaxed text-[var(--color-ink-muted)]">{vehicle.description}</p>
               </div>
             ) : null}
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <a href={wa} className="sm:flex-1">
-                <Button className="w-full" size="lg">
-                  Falar no WhatsApp
-                </Button>
-              </a>
-              <Link href="/inventory" className="sm:flex-1">
-                <Button variant="secondary" className="w-full" size="lg">
-                  Ver mais veículos
-                </Button>
-              </Link>
+
+            <div className="mt-10 border-t border-[var(--color-line)] pt-8">
+              <div
+                className="rounded-[var(--radius-lg)] border border-[var(--color-line)] p-6 sm:p-7"
+                style={{ backgroundColor: detailCta.accentSoft }}
+              >
+                <p className="font-[family-name:var(--font-syne)] text-lg font-semibold text-[var(--color-ink)] sm:text-xl">
+                  Próximo passo
+                </p>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-[var(--color-ink-muted)]">
+                  Tire dúvidas, combine visita ao pátio ou peça mais fotos — a equipe responde pelo WhatsApp com o mesmo cuidado do anúncio.
+                </p>
+                <div className="mt-6 flex flex-col gap-3">
+                  <a
+                    href={wa}
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] bg-[#E5A245] px-5 text-center text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[#D49238] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A245]"
+                  >
+                    Quero falar sobre este {vehicle.brand} {vehicle.model}
+                  </a>
+                  <Link
+                    href="/inventory"
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[#E5A245] bg-white/90 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[#E5A245]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E5A245]"
+                  >
+                    Ver outros veículos no estoque
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
