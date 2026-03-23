@@ -19,9 +19,9 @@ function categoryLabel(cat: string): string {
 
 export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: VehicleGridProps) {
   return (
-    <section className="border-y border-[var(--color-line)] bg-[var(--color-paper-dark)]/35 py-20">
+    <section className="border-y border-[var(--color-line)] bg-[var(--color-paper-dark)]/35 py-[var(--section-y)]">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end justify-between gap-5">
           <h2 className="font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight text-[var(--color-ink)]">
             {title}
           </h2>
@@ -33,11 +33,11 @@ export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: Veh
           </Link>
         </div>
         {vehicles.length === 0 ? (
-          <p className="mt-10 text-[var(--color-ink-muted)]">
+          <p className="mt-[var(--section-stack)] text-[var(--color-ink-muted)]">
             Novidades em cadastro — volte em instantes ou fale no WhatsApp.
           </p>
         ) : (
-          <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-[var(--section-stack)] grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {vehicles.map((v) => (
               <li key={v.id}>
                 <Card className="card-lift overflow-hidden">

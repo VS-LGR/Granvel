@@ -8,8 +8,8 @@ export type AuthorityBlockProps = {
 
 export function AuthorityBlock({ authority, socialProof }: AuthorityBlockProps) {
   return (
-    <section className="border-t border-[var(--color-line)] bg-[var(--color-ink)] py-20 text-[var(--color-paper)]">
-      <Container className="grid gap-12 lg:grid-cols-2 lg:items-start">
+    <section className="border-t border-[var(--color-line)] bg-[var(--color-ink)] py-[var(--section-y)] text-[var(--color-paper)]">
+      <Container className="grid gap-14 lg:grid-cols-2 lg:items-start">
         <div>
           <h2 className="font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight">{authority.title}</h2>
           <p className="mt-4 text-lg leading-relaxed text-[var(--color-paper)]/85">{authority.body}</p>

@@ -44,6 +44,15 @@ export const homeContent = {
     body:
       "Anos operando com o mesmo padrão: poucos carros no pátio, porém muito bem escolhidos. Indicação de cliente é nossa principal vitrine.",
   },
+  footerCta: {
+    title: "Pronto para ver o carro ao vivo?",
+    body:
+      "Agende uma visita ou envie suas dúvidas — respondemos com a mesma transparência do anúncio.",
+    primaryLabel: "Chamar no WhatsApp",
+    secondaryLabel: "Abrir estoque",
+    whatsappMessage: "Quero agendar visita na Granvel.",
+    secondaryHref: "/inventory",
+  },
 } as const;
 
 export const inventoryContent = {

@@ -1,7 +1,9 @@
+import type { Metadata } from "next";
 import {
   homeContent,
   socialProof,
 } from "@/config/site-content";
+import { site } from "@/config/site";
 import { AboutStrip } from "@/components/sections/about-strip";
 import { AuthorityBlock } from "@/components/sections/authority-block";
 import { CtaDual } from "@/components/sections/cta-dual";
@@ -11,6 +13,18 @@ import { TrustStrip } from "@/components/sections/trust-strip";
 import { VehicleGrid } from "@/components/sections/vehicle-grid";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { fetchPublishedVehicles, mapRowsToCards } from "@/lib/vehicles/queries";
+
+const homeDescription =
+  "Semi-novos curados com fotos reais, histórico transparente e condições claras — sem surpresas no fechamento.";
+
+export const metadata: Metadata = {
+  title: "Semi-novos selecionados",
+  description: homeDescription,
+  openGraph: {
+    title: `${site.name} · Semi-novos selecionados`,
+    description: homeDescription,
+  },
+};
 
 export default async function HomePage() {
   const supabase = await createSupabaseServerClient();
@@ -26,12 +40,12 @@ export default async function HomePage() {
       <TrustStrip content={homeContent.trustStrip} />
       <AuthorityBlock authority={homeContent.authority} socialProof={socialProof} />
       <CtaDual
-        title="Pronto para ver o carro ao vivo?"
-        body="Agende uma visita ou envie suas dúvidas — respondemos com a mesma transparência do anúncio."
-        primaryLabel="Chamar no WhatsApp"
-        secondaryLabel="Abrir estoque"
-        whatsappMessage="Quero agendar visita na Granvel."
-        secondaryHref="/inventory"
+        title={homeContent.footerCta.title}
+        body={homeContent.footerCta.body}
+        primaryLabel={homeContent.footerCta.primaryLabel}
+        secondaryLabel={homeContent.footerCta.secondaryLabel}
+        whatsappMessage={homeContent.footerCta.whatsappMessage}
+        secondaryHref={homeContent.footerCta.secondaryHref}
       />
     </>
   );

@@ -19,24 +19,28 @@ export function HeroHome({ content }: HeroHomeProps) {
         }}
         aria-hidden
       />
-      <Container className="relative py-20 sm:py-28">
+      <Container className="relative py-[var(--section-y-hero)]">
         <p className="animate-fade-up text-xs font-semibold uppercase tracking-[0.25em] text-[var(--color-paper)]/70">
           {content.eyebrow}
         </p>
         <h1 className="animate-fade-up mt-4 max-w-3xl font-[family-name:var(--font-syne)] text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
           {content.title}
         </h1>
-        <p className="animate-fade-up mt-6 max-w-2xl text-lg leading-relaxed text-[var(--color-paper)]/85">
+        <p className="animate-fade-up mt-7 max-w-2xl text-lg leading-relaxed text-[var(--color-paper)]/90">
           {content.subtitle}
         </p>
-        <div className="animate-fade-up mt-10 flex flex-wrap gap-3">
+        <div className="animate-fade-up mt-11 flex flex-wrap gap-4">
           <a href={whatsappHref("Olá, quero falar com a Granvel.")}>
             <Button size="lg" className="w-full sm:w-auto">
               {content.primaryCta}
             </Button>
           </a>
           <Link href="/inventory">
-            <Button variant="secondary" size="lg" className="w-full border-white/20 bg-white/10 text-white hover:bg-white/15 sm:w-auto">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="w-full border-2 !border-white/45 !bg-white/15 !text-white shadow-sm backdrop-blur-sm hover:!bg-white/25 sm:w-auto"
+            >
               {content.secondaryCta}
             </Button>
           </Link>
