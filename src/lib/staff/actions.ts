@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { buildVehicleSlug } from "@/lib/staff/slug";
 import { collectImageFilesFromFormData, uploadVehicleImageFiles } from "@/lib/staff/upload-images";
+import { parseMileageKmField, parsePriceReaisField } from "@/lib/staff/form-values";
 
 export async function signOutStaff(): Promise<void> {
   const supabase = await createSupabaseServerClient();
@@ -25,8 +26,8 @@ function parseForm(formData: FormData) {
   const brand = String(formData.get("brand") ?? "").trim();
   const model = String(formData.get("model") ?? "").trim();
   const year = Number(formData.get("year"));
-  const priceReais = Number(String(formData.get("price_reais") ?? "").replace(",", "."));
-  const mileageKm = Number(formData.get("mileage_km"));
+  const priceReais = parsePriceReaisField(formData.get("price_reais"));
+  const mileageKm = parseMileageKmField(formData.get("mileage_km"));
   const fuel = String(formData.get("fuel") ?? "").trim();
   const transmission = String(formData.get("transmission") ?? "").trim();
   const category = String(formData.get("category") ?? "").trim();

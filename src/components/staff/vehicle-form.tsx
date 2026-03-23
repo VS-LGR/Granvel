@@ -11,6 +11,8 @@ import {
 } from "@/config/filters";
 import type { VehicleRow } from "@/lib/types/vehicle";
 import { StaffImageField } from "@/components/staff/staff-image-field";
+import { VehicleKmField } from "@/components/staff/vehicle-km-field";
+import { VehiclePriceField } from "@/components/staff/vehicle-price-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SelectField } from "@/components/ui/select";
@@ -50,26 +52,8 @@ export function VehicleForm({ mode }: { mode: Mode }) {
           max={2035}
           defaultValue={v?.year}
         />
-        <Input
-          fieldVariant="onDark"
-          name="price_reais"
-          label="Preço (R$)"
-          type="number"
-          required
-          min={1}
-          step={0.01}
-          defaultValue={v ? v.price_cents / 100 : undefined}
-          hint="Use ponto ou vírgula no decimal."
-        />
-        <Input
-          fieldVariant="onDark"
-          name="mileage_km"
-          label="Quilometragem"
-          type="number"
-          required
-          min={0}
-          defaultValue={v?.mileage_km}
-        />
+        <VehiclePriceField defaultCents={v?.price_cents} />
+        <VehicleKmField defaultKm={v?.mileage_km} />
         <SelectField
           fieldVariant="onDark"
           name="fuel"
@@ -111,33 +95,34 @@ export function VehicleForm({ mode }: { mode: Mode }) {
         defaultValue={imageText}
         hint="Use se ainda tiver fotos hospedadas fora do Supabase. As enviadas acima entram primeiro na galeria."
       />
-      <div className="flex flex-col gap-3 rounded-lg border border-white/15 bg-white/10 p-4 text-sm text-zinc-100">
-        <label className="flex cursor-pointer items-center gap-3">
+      <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-white/15 bg-white/5 p-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Visibilidade e destaques</p>
+        <label className="flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border border-white/15 bg-white/5 px-4 py-3 transition-colors hover:border-white/25 hover:bg-white/10 has-[:checked]:border-[var(--color-accent)]/50 has-[:checked]:bg-[var(--color-accent)]/12 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--color-accent)]">
           <input
             type="checkbox"
             name="published"
             defaultChecked={v?.published ?? true}
-            className="size-4 shrink-0 accent-[var(--color-accent)]"
+            className="size-[1.125rem] shrink-0 rounded border-2 border-white/35 bg-white text-[var(--color-accent)] accent-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/40 focus:ring-offset-2 focus:ring-offset-[var(--color-ink)]"
           />
-          <span>Publicado no site</span>
+          <span className="text-sm font-medium text-zinc-100">Publicado no site</span>
         </label>
-        <label className="flex cursor-pointer items-center gap-3">
+        <label className="flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border border-white/15 bg-white/5 px-4 py-3 transition-colors hover:border-white/25 hover:bg-white/10 has-[:checked]:border-[var(--color-accent)]/50 has-[:checked]:bg-[var(--color-accent)]/12 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--color-accent)]">
           <input
             type="checkbox"
             name="is_featured_month"
             defaultChecked={v?.is_featured_month ?? false}
-            className="size-4 shrink-0 accent-[var(--color-accent)]"
+            className="size-[1.125rem] shrink-0 rounded border-2 border-white/35 bg-white text-[var(--color-accent)] accent-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/40 focus:ring-offset-2 focus:ring-offset-[var(--color-ink)]"
           />
-          <span>Carro do mês</span>
+          <span className="text-sm font-medium text-zinc-100">Carro do mês</span>
         </label>
-        <label className="flex cursor-pointer items-center gap-3">
+        <label className="flex cursor-pointer items-center gap-3 rounded-[var(--radius-md)] border border-white/15 bg-white/5 px-4 py-3 transition-colors hover:border-white/25 hover:bg-white/10 has-[:checked]:border-[var(--color-accent)]/50 has-[:checked]:bg-[var(--color-accent)]/12 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-[var(--color-accent)]">
           <input
             type="checkbox"
             name="is_promotion"
             defaultChecked={v?.is_promotion ?? false}
-            className="size-4 shrink-0 accent-[var(--color-accent)]"
+            className="size-[1.125rem] shrink-0 rounded border-2 border-white/35 bg-white text-[var(--color-accent)] accent-[var(--color-accent)] focus:ring-2 focus:ring-[var(--color-accent)]/40 focus:ring-offset-2 focus:ring-offset-[var(--color-ink)]"
           />
-          <span>Promoção</span>
+          <span className="text-sm font-medium text-zinc-100">Promoção</span>
         </label>
       </div>
       {state.error ? <p className="text-sm font-medium text-red-300">{state.error}</p> : null}
