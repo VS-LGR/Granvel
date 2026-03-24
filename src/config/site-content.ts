@@ -5,9 +5,9 @@ export const homeContent = {
     eyebrow: "Concessionária Granvel",
     title: "Semi-novos curados para quem exige clareza na compra.",
     subtitle:
-      "Anunciamos com fotos reais, histórico transparente e condições que cabem no seu bolso — sem surpresas no fechamento.",
-    primaryCta: "Falar no WhatsApp",
-    secondaryCta: "Ver estoque",
+      "Anunciamos com fotos reais, histórico transparente e condições que cabem no seu bolso — sem surpresas no fechamento. O seu próximo veículo a um clique de distância.",
+    primaryCta: "Ver estoque",
+    secondaryCta: "Falar no WhatsApp",
   },
   about: {
     title: "Quem somos",

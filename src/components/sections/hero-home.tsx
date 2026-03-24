@@ -30,12 +30,12 @@ export function HeroHome({ content }: HeroHomeProps) {
           {content.subtitle}
         </p>
         <div className="animate-fade-up mt-11 flex flex-wrap gap-4">
-          <a href={whatsappHref("Olá, quero falar com a Granvel.")}>
+          <Link href="/inventory">
             <Button size="lg" className="w-full sm:w-auto">
               {content.primaryCta}
             </Button>
-          </a>
-          <Link href="/inventory">
+          </Link>
+          <a href={whatsappHref("Olá, quero falar com a Granvel.")}>
             <Button
               variant="secondary"
               size="lg"
@@ -43,7 +43,7 @@ export function HeroHome({ content }: HeroHomeProps) {
             >
               {content.secondaryCta}
             </Button>
-          </Link>
+          </a>
         </div>
       </Container>
     </section>
