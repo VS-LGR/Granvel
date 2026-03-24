@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import { createVehicle, updateVehicle } from "@/lib/staff/actions";
 import {
@@ -22,6 +23,40 @@ const categoryOptions = vehicleCategories.map((c) => ({ value: c, label: categor
 
 type Mode = { type: "create" } | { type: "edit"; vehicle: VehicleRow };
 
+function SubmitVehicleButton({ mode }: { mode: Mode["type"] }) {
+  const { pending } = useFormStatus();
+  const idleLabel = mode === "create" ? "Salvar veículo" : "Salvar alterações";
+  const pendingLabel = mode === "create" ? "Cadastrando veículo..." : "Salvando alterações...";
+
+  return (
+    <Button type="submit" size="lg" disabled={pending} aria-busy={pending}>
+      {pending ? pendingLabel : idleLabel}
+    </Button>
+  );
+}
+
+function FormActions({ mode }: { mode: Mode["type"] }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <div className="flex flex-wrap gap-3">
+      <SubmitVehicleButton mode={mode} />
+      <Link
+        href="/staff"
+        aria-disabled={pending}
+        onClick={(e) => {
+          if (pending) e.preventDefault();
+        }}
+        className={`inline-flex min-h-12 items-center justify-center rounded-[var(--radius-md)] border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] ${
+          pending ? "cursor-not-allowed opacity-55" : "hover:bg-white/15"
+        }`}
+      >
+        Cancelar
+      </Link>
+    </div>
+  );
+}
+
 export function VehicleForm({ mode }: { mode: Mode }) {
   const action =
     mode.type === "create"
@@ -36,9 +71,35 @@ export function VehicleForm({ mode }: { mode: Mode }) {
   const defaultFuel = v?.fuel ?? fuelOptions[0].value;
   const defaultTransmission = v?.transmission ?? transmissionOptions[0].value;
   const defaultCategory = v?.category ?? categoryOptions[0].value;
+  const confirmMessage = 
+    mode.type === "create"
+      ? "Confirmar cadastro deste veículo no sistema?"
+      : "Confirmar atualização dos dados deste veículo?";
+  const confirmDescription =
+    mode.type === "create"
+      ? "Após confirmar, o sistema iniciará o cadastro e envio das imagens."
+      : "Após confirmar, as alterações serão salvas e publicadas conforme os campos marcados.";
+  const formRef = useRef<HTMLFormElement>(null);
+  const allowSubmitRef = useRef(false);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   return (
-    <form action={formAction} encType="multipart/form-data" className="mx-auto flex max-w-2xl flex-col gap-5">
+    <form
+      ref={formRef}
+      action={formAction}
+      encType="multipart/form-data"
+      className="mx-auto flex max-w-2xl flex-col gap-5"
+      onSubmit={(e) => {
+        if (allowSubmitRef.current) {
+          allowSubmitRef.current = false;
+          return;
+        }
+        if (!isConfirmOpen) {
+          e.preventDefault();
+          setIsConfirmOpen(true);
+        }
+      }}
+    >
       <div className="grid gap-4 sm:grid-cols-2">
         <Input fieldVariant="onDark" name="brand" label="Marca" required defaultValue={v?.brand} />
         <Input fieldVariant="onDark" name="model" label="Modelo" required defaultValue={v?.model} />
@@ -126,17 +187,40 @@ export function VehicleForm({ mode }: { mode: Mode }) {
         </label>
       </div>
       {state.error ? <p className="text-sm font-medium text-red-300">{state.error}</p> : null}
-      <div className="flex flex-wrap gap-3">
-        <Button type="submit" size="lg">
-          Salvar
-        </Button>
-        <Link
-          href="/staff"
-          className="inline-flex min-h-12 items-center justify-center rounded-[var(--radius-md)] border border-white/25 bg-white/10 px-6 text-sm font-semibold text-white hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-        >
-          Cancelar
-        </Link>
-      </div>
+      <FormActions mode={mode.type} />
+      {isConfirmOpen ? (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-black/55 p-4">
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={confirmMessage}
+            className="w-full max-w-md rounded-[var(--radius-lg)] border border-white/15 bg-[var(--color-ink)] p-6 shadow-[var(--shadow-soft)]"
+          >
+            <h2 className="font-[family-name:var(--font-syne)] text-xl font-semibold text-white">{confirmMessage}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-zinc-300">{confirmDescription}</p>
+            <div className="mt-6 flex flex-wrap justify-end gap-3">
+              <Button
+                type="button"
+                variant="secondary"
+                className="border-white/20 bg-white/10 text-white hover:bg-white/15"
+                onClick={() => setIsConfirmOpen(false)}
+              >
+                Voltar
+              </Button>
+              <Button
+                type="button"
+                onClick={() => {
+                  allowSubmitRef.current = true;
+                  setIsConfirmOpen(false);
+                  formRef.current?.requestSubmit();
+                }}
+              >
+                Confirmar e salvar
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </form>
   );
 }
