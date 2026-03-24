@@ -23,8 +23,9 @@ export function CtaDual({
   return (
     <section className="py-[var(--section-y)]">
       <Container>
-        <div className="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-gradient-to-br from-white to-[var(--color-paper-dark)]/40 p-10 text-center shadow-[var(--shadow-soft)] sm:p-12">
+        <div className="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-gradient-to-br from-white to-[var(--color-paper-dark)]/30 p-10 text-center shadow-[0_10px_24px_rgba(12,15,20,0.06)] sm:p-12">
           <h2 className="font-[family-name:var(--font-syne)] text-3xl font-semibold text-[var(--color-ink)]">{title}</h2>
+          <div className="mx-auto mt-3 h-px w-14 bg-[var(--color-accent)]/30" aria-hidden />
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-ink-muted)]">{body}</p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a href={whatsappHref(whatsappMessage)}>

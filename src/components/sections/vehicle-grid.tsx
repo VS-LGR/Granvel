@@ -21,17 +21,21 @@ export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: Veh
   return (
     <section className="border-y border-[var(--color-line)] bg-[var(--color-paper-dark)]/35 py-[var(--section-y)]">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-5">
-          <h2 className="font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight text-[var(--color-ink)]">
-            {title}
-          </h2>
-          <Link
-            href={viewAllHref}
-            className="text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] focus-ring rounded-sm"
-          >
-            Ver tudo
-          </Link>
-        </div>
+        <div className="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-gradient-to-br from-white/70 to-[var(--color-paper-dark)]/34 p-6 sm:p-8">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <div>
+              <h2 className="font-[family-name:var(--font-syne)] text-3xl font-semibold tracking-tight text-[var(--color-ink)]">
+                {title}
+              </h2>
+              <div className="mt-3 h-px w-14 bg-[var(--color-accent)]/30" aria-hidden />
+            </div>
+            <Link
+              href={viewAllHref}
+              className="text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] focus-ring rounded-sm"
+            >
+              Ver tudo
+            </Link>
+          </div>
         {vehicles.length === 0 ? (
           <p className="mt-[var(--section-stack)] text-[var(--color-ink-muted)]">
             Novidades em cadastro — volte em instantes ou fale no WhatsApp.
@@ -41,45 +45,46 @@ export function VehicleGrid({ title, vehicles, viewAllHref = "/inventory" }: Veh
             {vehicles.map((v) => (
               <li key={v.id}>
                 <Link href={`/veiculo/${v.slug}`} className="group block">
-                  <Card className="card-lift h-full overflow-hidden transition-[border-color] group-hover:border-[var(--color-accent)]/35">
-                  <div className="relative aspect-[16/10] bg-[var(--color-paper-dark)]">
-                    {v.imageUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={v.imageUrl}
-                        alt={`${v.brand} ${v.model}`}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div className="flex h-full items-center justify-center text-sm text-[var(--color-ink-muted)]">
-                        Sem foto
-                      </div>
-                    )}
-                    {v.isPromotion ? (
-                      <span className="absolute left-3 top-3">
-                        <Badge tone="accent">Promoção</Badge>
-                      </span>
-                    ) : null}
-                  </div>
-                  <div className="space-y-2 p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">
-                      {categoryLabel(v.category)} · {v.year}
-                    </p>
-                    <p className="text-lg font-semibold text-[var(--color-ink)]">
-                      {v.brand} {v.model}
-                    </p>
-                    <p className="text-2xl font-bold text-[var(--color-accent)]">{formatBRLFromCents(v.priceCents)}</p>
-                    <p className="text-sm text-[var(--color-ink-muted)]">
-                      {formatKm(v.mileageKm)} · {v.fuel} · {v.transmission}
-                    </p>
-                    <p className="pt-1 text-xs font-semibold text-[var(--color-accent)] group-hover:underline">Ver fotos e detalhes</p>
-                  </div>
-                </Card>
+                  <Card className="card-lift h-full overflow-hidden border-[var(--color-line)] bg-white/80 shadow-[0_8px_18px_rgba(12,15,20,0.05)] transition-[border-color] group-hover:border-[var(--color-accent)]/35">
+                    <div className="relative aspect-[16/10] bg-[var(--color-paper-dark)]">
+                      {v.imageUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={v.imageUrl}
+                          alt={`${v.brand} ${v.model}`}
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center text-sm text-[var(--color-ink-muted)]">
+                          Sem foto
+                        </div>
+                      )}
+                      {v.isPromotion ? (
+                        <span className="absolute left-3 top-3">
+                          <Badge tone="accent">Promoção</Badge>
+                        </span>
+                      ) : null}
+                    </div>
+                    <div className="space-y-2 p-5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-muted)]">
+                        {categoryLabel(v.category)} · {v.year}
+                      </p>
+                      <p className="text-lg font-semibold text-[var(--color-ink)]">
+                        {v.brand} {v.model}
+                      </p>
+                      <p className="text-2xl font-bold text-[var(--color-accent)]">{formatBRLFromCents(v.priceCents)}</p>
+                      <p className="text-sm text-[var(--color-ink-muted)]">
+                        {formatKm(v.mileageKm)} · {v.fuel} · {v.transmission}
+                      </p>
+                      <p className="pt-1 text-xs font-semibold text-[var(--color-accent)] group-hover:underline">Ver fotos e detalhes</p>
+                    </div>
+                  </Card>
                 </Link>
               </li>
             ))}
           </ul>
         )}
+        </div>
       </Container>
     </section>
   );
