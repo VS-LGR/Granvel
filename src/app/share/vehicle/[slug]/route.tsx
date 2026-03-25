@@ -101,7 +101,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             flex: 1,
             borderRadius: 44,
             overflow: "hidden",
-            background: "rgba(12,15,20,0.04)",
+              background: "rgba(246,244,239,0.55)",
             border: "1px solid rgba(12,15,20,0.14)",
             display: "flex",
             alignItems: "center",
@@ -117,7 +117,8 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               style={{
                 width: "100%",
                 height: "100%",
-                objectFit: "cover",
+                  objectFit: "contain",
+                  objectPosition: "center",
               }}
             />
           ) : (
@@ -168,17 +169,17 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               <span style={{ opacity: 0.72, fontWeight: 700 }}> · </span>
               {vehicle.model}
             </div>
-            <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
               {chips.map((c) => (
                 <div
                   key={c}
                   style={{
-                    padding: "10px 14px",
-                    borderRadius: 14,
-                    background: "rgba(255,255,255,0.09)",
-                    border: "1px solid rgba(255,255,255,0.14)",
-                    fontSize: 22,
-                    color: "rgba(255,255,255,0.9)",
+                      padding: "12px 16px",
+                      borderRadius: 16,
+                      background: "rgba(229,162,69,0.18)",
+                      border: "1px solid rgba(229,162,69,0.35)",
+                      fontSize: 26,
+                      color: "rgba(255,255,255,0.95)",
                   }}
                 >
                   {c}
@@ -186,17 +187,17 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               ))}
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 14 }}>
-            <div style={{ fontSize: 22, letterSpacing: 6, textTransform: "uppercase", opacity: 0.72 }}>Preço</div>
-            <div style={{ fontSize: 64, fontWeight: 900, color: accent, letterSpacing: -1.4 }}>{price}</div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 14 }}>
+              <div style={{ fontSize: 24, letterSpacing: 6, textTransform: "uppercase", opacity: 0.72 }}>Preço</div>
+              <div style={{ fontSize: 74, fontWeight: 900, color: accent, letterSpacing: -1.6, textShadow: "0 8px 28px rgba(0,0,0,0.22)" }}>{price}</div>
             <div
               style={{
                 marginTop: 6,
-                padding: "12px 16px",
-                borderRadius: 16,
+                  padding: "14px 20px",
+                  borderRadius: 18,
                 background: accent,
                 color: ink,
-                fontSize: 22,
+                  fontSize: 24,
                 fontWeight: 800,
               }}
             >
@@ -213,7 +214,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             alignItems: "center",
             gap: 16,
             color: "rgba(255,255,255,0.72)",
-            fontSize: 20,
+              fontSize: 22,
           }}
         >
           <div>O seu próximo veículo a um clique de distância.</div>
@@ -271,7 +272,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             flex: 1,
             borderRadius: 44,
             overflow: "hidden",
-            background: "rgba(12,15,20,0.04)",
+            background: "rgba(246,244,239,0.55)",
             border: "1px solid rgba(12,15,20,0.14)",
             display: "flex",
             alignItems: "center",
@@ -308,27 +309,27 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               <span style={{ opacity: 0.72, fontWeight: 700 }}> · </span>
               {vehicle.model}
             </div>
-            <div style={{ marginTop: 16, display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
               <div
                 style={{
-                  padding: "10px 14px",
-                  borderRadius: 14,
-                  background: "rgba(255,255,255,0.09)",
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  fontSize: 22,
-                  color: "rgba(255,255,255,0.9)",
+                    padding: "12px 16px",
+                    borderRadius: 16,
+                    background: "rgba(229,162,69,0.18)",
+                    border: "1px solid rgba(229,162,69,0.35)",
+                    fontSize: 26,
+                    color: "rgba(255,255,255,0.95)",
                 }}
               >
                 {year}
               </div>
               <div
                 style={{
-                  padding: "10px 14px",
-                  borderRadius: 14,
-                  background: "rgba(255,255,255,0.09)",
-                  border: "1px solid rgba(255,255,255,0.14)",
-                  fontSize: 22,
-                  color: "rgba(255,255,255,0.9)",
+                    padding: "12px 16px",
+                    borderRadius: 16,
+                    background: "rgba(229,162,69,0.18)",
+                    border: "1px solid rgba(229,162,69,0.35)",
+                    fontSize: 26,
+                    color: "rgba(255,255,255,0.95)",
                 }}
               >
                 {price}
@@ -336,15 +337,15 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 14 }}>
-            <div style={{ fontSize: 22, letterSpacing: 6, textTransform: "uppercase", opacity: 0.72 }}>Ver</div>
+              <div style={{ fontSize: 24, letterSpacing: 6, textTransform: "uppercase", opacity: 0.72 }}>Ver</div>
             <div
               style={{
                 marginTop: 6,
-                padding: "12px 16px",
-                borderRadius: 16,
+                  padding: "14px 20px",
+                  borderRadius: 18,
                 background: accent,
                 color: ink,
-                fontSize: 22,
+                  fontSize: 24,
                 fontWeight: 800,
               }}
             >
