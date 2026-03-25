@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { whatsappHref } from "@/config/site";
+import { site, whatsappHref } from "@/config/site";
 import { categoryLabels, type VehicleCategory } from "@/config/filters";
 import { formatBRLFromCents, formatKm } from "@/lib/format";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -43,9 +43,17 @@ export default async function VehicleDetailPage({ params }: Props) {
 
   const images = vehicle.image_urls ?? [];
   const title = `${vehicle.brand} ${vehicle.model}`;
+  const baseUrl = site.url.replace(/\/$/, "");
+  const vehicleUrl = `${baseUrl}/veiculo/${vehicle.slug}`;
   const wa = whatsappHref(
     `Olá! Vi o ${vehicle.brand} ${vehicle.model} ${vehicle.year} no site da Granvel e quero mais informações (visita, reserva ou condições).`,
   );
+  const shareText = [
+    `${vehicle.is_promotion ? "Promoção Granvel" : "Granvel"}: ${vehicle.brand} ${vehicle.model} ${vehicle.year} — ${formatBRLFromCents(vehicle.price_cents)}`,
+    vehicleUrl,
+  ].join("\n");
+  const shareHref = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const shareImageHref = `/share/vehicle/${vehicle.slug}`;
 
   return (
     <article className="border-b border-[var(--color-line)] bg-[var(--color-paper)] py-[var(--section-y)]">
@@ -109,6 +117,20 @@ export default async function VehicleDetailPage({ params }: Props) {
                     className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-5 text-center text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                   >
                     Quero falar sobre este {vehicle.brand} {vehicle.model}
+                  </a>
+                  <a
+                    href={shareHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[var(--color-accent)] bg-white/80 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-accent)]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                  >
+                    Compartilhar no WhatsApp
+                  </a>
+                  <a
+                    href={shareImageHref}
+                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-line)] bg-white/70 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                  >
+                    Baixar imagem para Status
                   </a>
                   <Link
                     href="/inventory"
