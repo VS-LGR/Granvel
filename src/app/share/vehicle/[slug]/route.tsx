@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
-import { NextResponse } from "next/server";
 import { site } from "@/config/site";
 import { formatBRLFromCents, formatKm } from "@/lib/format";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { fetchVehicleBySlug } from "@/lib/vehicles/queries";
 
-export const runtime = "edge";
+export const runtime = "nodejs";
 
 const W = 1080;
 const H = 1920;
@@ -13,10 +12,10 @@ const H = 1920;
 export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }> }) {
   const { slug } = await ctx.params;
   const supabase = await createSupabaseServerClient();
-  if (!supabase) return new NextResponse("Supabase not configured", { status: 500 });
+  if (!supabase) return new Response("Supabase not configured", { status: 500 });
 
   const vehicle = await fetchVehicleBySlug(supabase, slug);
-  if (!vehicle) return new NextResponse("Not found", { status: 404 });
+  if (!vehicle) return new Response("Not found", { status: 404 });
 
   const title = `${vehicle.brand} ${vehicle.model}`;
   // Mantidos para o layout (futuro): hoje o template usa principalmente a foto e a marca.
@@ -32,7 +31,20 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
   const deep = "#0b1220";
   const paper = "#f6f4ef";
 
-  const png = new ImageResponse(
+  const imageSrc = await (async () => {
+    if (!image) return null;
+    try {
+      const res = await fetch(image);
+      const ct = res.headers.get("content-type") ?? "image/jpeg";
+      const buf = await res.arrayBuffer();
+      const b64 = Buffer.from(buf).toString("base64");
+      return `data:${ct};base64,${b64}`;
+    } catch {
+      return null;
+    }
+  })();
+
+  return new ImageResponse(
     (
       <div
         style={{
@@ -89,10 +101,10 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               position: "relative",
             }}
           >
-            {image ? (
+            {imageSrc ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={image}
+                src={imageSrc}
                 alt={title}
                 style={{
                   width: "100%",
@@ -200,8 +212,5 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
       },
     },
   );
-
-  // Retornar diretamente o ImageResponse evita que o download venha corrompido.
-  return png;
 }
 
