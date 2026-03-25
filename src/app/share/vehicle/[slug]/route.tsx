@@ -65,11 +65,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
     >
       <div
         style={{
-          height: 124,
+          height: 116,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "36px 56px",
+          padding: "30px 44px",
           background: deep,
           color: "white",
         }}
@@ -95,7 +95,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
         </div>
       </div>
 
-      <div style={{ flex: 1, display: "flex", padding: "56px 56px 0 56px" }}>
+      <div style={{ flex: 1, display: "flex", padding: "44px 44px 0 44px" }}>
         <div
           style={{
             flex: 1,
@@ -117,7 +117,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               style={{
                 width: "100%",
                 height: "100%",
-                  objectFit: "contain",
+                  objectFit: "cover",
                   objectPosition: "center",
               }}
             />
@@ -146,7 +146,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
 
       <div
         style={{
-          padding: "38px 56px 54px 56px",
+          padding: "30px 44px 40px 44px",
           background: deep,
           color: "white",
           display: "flex",
@@ -159,9 +159,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               style={{
                 display: "flex",
                 alignItems: "baseline",
-                fontSize: 50,
+                fontSize: 56,
                 fontWeight: 800,
-                letterSpacing: -1.2,
+                letterSpacing: -1.4,
                 lineHeight: 1.05,
               }}
             >
@@ -169,16 +169,16 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               <span style={{ opacity: 0.72, fontWeight: 700 }}> · </span>
               {vehicle.model}
             </div>
-              <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
+              <div style={{ marginTop: 18, display: "flex", gap: 16, flexWrap: "wrap" }}>
               {chips.map((c) => (
                 <div
                   key={c}
                   style={{
-                      padding: "12px 16px",
-                      borderRadius: 16,
+                    padding: "14px 18px",
+                    borderRadius: 18,
                       background: "rgba(229,162,69,0.18)",
                       border: "1px solid rgba(229,162,69,0.35)",
-                      fontSize: 26,
+                    fontSize: 28,
                       color: "rgba(255,255,255,0.95)",
                   }}
                 >
@@ -189,15 +189,15 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
           </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 14 }}>
               <div style={{ fontSize: 24, letterSpacing: 6, textTransform: "uppercase", opacity: 0.72 }}>Preço</div>
-              <div style={{ fontSize: 74, fontWeight: 900, color: accent, letterSpacing: -1.6, textShadow: "0 8px 28px rgba(0,0,0,0.22)" }}>{price}</div>
+              <div style={{ fontSize: 84, fontWeight: 900, color: accent, letterSpacing: -1.8, textShadow: "0 8px 28px rgba(0,0,0,0.22)" }}>{price}</div>
             <div
               style={{
                 marginTop: 6,
-                  padding: "14px 20px",
-                  borderRadius: 18,
+                  padding: "16px 22px",
+                  borderRadius: 20,
                 background: accent,
                 color: ink,
-                  fontSize: 24,
+                  fontSize: 26,
                 fontWeight: 800,
               }}
             >
@@ -214,7 +214,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             alignItems: "center",
             gap: 16,
             color: "rgba(255,255,255,0.72)",
-              fontSize: 22,
+              fontSize: 24,
           }}
         >
           <div>O seu próximo veículo a um clique de distância.</div>
@@ -236,11 +236,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
     >
       <div
         style={{
-          height: 124,
+          height: 116,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "36px 56px",
+          padding: "30px 44px",
           background: deep,
           color: "white",
         }}
@@ -266,7 +266,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
         </div>
       </div>
 
-      <div style={{ flex: 1, display: "flex", padding: "56px 56px 0 56px" }}>
+      <div style={{ flex: 1, display: "flex", padding: "44px 44px 0 44px" }}>
         <div
           style={{
             flex: 1,
@@ -286,7 +286,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
 
       <div
         style={{
-          padding: "38px 56px 54px 56px",
+          padding: "30px 44px 40px 44px",
           background: deep,
           color: "white",
           display: "flex",
@@ -299,9 +299,9 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               style={{
                 display: "flex",
                 alignItems: "baseline",
-                fontSize: 50,
+                fontSize: 56,
                 fontWeight: 800,
-                letterSpacing: -1.2,
+                letterSpacing: -1.4,
                 lineHeight: 1.05,
               }}
             >
@@ -309,14 +309,14 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               <span style={{ opacity: 0.72, fontWeight: 700 }}> · </span>
               {vehicle.model}
             </div>
-              <div style={{ marginTop: 16, display: "flex", gap: 14, flexWrap: "wrap" }}>
+              <div style={{ marginTop: 18, display: "flex", gap: 16, flexWrap: "wrap" }}>
               <div
                 style={{
-                    padding: "12px 16px",
-                    borderRadius: 16,
+                    padding: "14px 18px",
+                    borderRadius: 18,
                     background: "rgba(229,162,69,0.18)",
                     border: "1px solid rgba(229,162,69,0.35)",
-                    fontSize: 26,
+                    fontSize: 28,
                     color: "rgba(255,255,255,0.95)",
                 }}
               >
@@ -324,11 +324,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               </div>
               <div
                 style={{
-                    padding: "12px 16px",
-                    borderRadius: 16,
+                    padding: "14px 18px",
+                    borderRadius: 18,
                     background: "rgba(229,162,69,0.18)",
                     border: "1px solid rgba(229,162,69,0.35)",
-                    fontSize: 26,
+                    fontSize: 28,
                     color: "rgba(255,255,255,0.95)",
                 }}
               >
@@ -341,11 +341,11 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             <div
               style={{
                 marginTop: 6,
-                  padding: "14px 20px",
-                  borderRadius: 18,
+                  padding: "16px 22px",
+                  borderRadius: 20,
                 background: accent,
                 color: ink,
-                  fontSize: 24,
+                  fontSize: 26,
                 fontWeight: 800,
               }}
             >
