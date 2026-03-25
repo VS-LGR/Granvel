@@ -117,7 +117,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
               style={{
                 width: "100%",
                 height: "100%",
-                  objectFit: "cover",
+                  objectFit: "contain",
                   objectPosition: "center",
               }}
             />
