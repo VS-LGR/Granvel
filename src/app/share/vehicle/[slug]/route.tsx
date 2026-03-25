@@ -19,6 +19,7 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
   if (!vehicle) return new NextResponse("Not found", { status: 404 });
 
   const title = `${vehicle.brand} ${vehicle.model}`;
+  // Mantidos para o layout (futuro): hoje o template usa principalmente a foto e a marca.
   const price = formatBRLFromCents(vehicle.price_cents);
   const km = formatKm(vehicle.mileage_km).replace(" km", "");
   const year = String(vehicle.year);
@@ -193,16 +194,14 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
     {
       width: W,
       height: H,
+      headers: {
+        "Content-Type": "image/png",
+        "Content-Disposition": `attachment; filename="granvel-${vehicle.slug}.png"`,
+      },
     },
   );
 
-  return new NextResponse(png.body, {
-    status: 200,
-    headers: {
-      "Content-Type": "image/png",
-      "Cache-Control": "public, max-age=3600, stale-while-revalidate=86400",
-      "Content-Disposition": `attachment; filename=\"granvel-${vehicle.slug}.png\"`,
-    },
-  });
+  // Retornar diretamente o ImageResponse evita que o download venha corrompido.
+  return png;
 }
 

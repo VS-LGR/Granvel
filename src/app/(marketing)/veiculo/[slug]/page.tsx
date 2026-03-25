@@ -66,6 +66,22 @@ export default async function VehicleDetailPage({ params }: Props) {
         <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start lg:gap-12">
           <div>
             <VehicleGalleryCarousel images={images} alt={title} variant="light" />
+            <div className="mt-6 flex flex-col gap-3">
+              <a
+                href={shareHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[var(--color-accent)] bg-white/80 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-accent)]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              >
+                Compartilhar no WhatsApp
+              </a>
+              <a
+                href={shareImageHref}
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-line)] bg-white/70 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              >
+                Baixar imagem para Status
+              </a>
+            </div>
           </div>
           <div className="rounded-[var(--radius-lg)] border border-[var(--color-line)] bg-white p-6 shadow-[var(--shadow-soft)] sm:p-8">
             <div className="flex flex-wrap items-center gap-2">
@@ -117,20 +133,6 @@ export default async function VehicleDetailPage({ params }: Props) {
                     className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] bg-[var(--color-accent)] px-5 text-center text-sm font-semibold text-[var(--color-ink)] shadow-sm transition-colors hover:bg-[var(--color-accent-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
                   >
                     Quero falar sobre este {vehicle.brand} {vehicle.model}
-                  </a>
-                  <a
-                    href={shareHref}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border-2 border-[var(--color-accent)] bg-white/80 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-[var(--color-accent)]/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-                  >
-                    Compartilhar no WhatsApp
-                  </a>
-                  <a
-                    href={shareImageHref}
-                    className="inline-flex min-h-12 w-full items-center justify-center rounded-[var(--radius-md)] border border-[var(--color-line)] bg-white/70 px-5 text-center text-sm font-semibold text-[var(--color-ink)] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-                  >
-                    Baixar imagem para Status
                   </a>
                   <Link
                     href="/inventory"
