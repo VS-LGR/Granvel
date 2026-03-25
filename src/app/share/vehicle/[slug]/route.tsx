@@ -140,10 +140,12 @@ export async function GET(_req: Request, ctx: { params: Promise<{ slug: string }
             padding: "38px 56px 54px 56px",
             background: deep,
             color: "white",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
           <div style={{ display: "flex", gap: 20, alignItems: "flex-start", justifyContent: "space-between" }}>
-            <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
               <div style={{ fontSize: 50, fontWeight: 800, letterSpacing: -1.2, lineHeight: 1.05 }}>
                 {vehicle.brand}
                 <span style={{ opacity: 0.72, fontWeight: 700 }}> · </span>
