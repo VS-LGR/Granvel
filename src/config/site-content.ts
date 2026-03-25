@@ -84,6 +84,12 @@ export const promotionsContent = {
   emptyBody: "Volte em breve ou fale no WhatsApp para ser avisado das próximas campanhas.",
 } as const;
 
+export const vehicleDetailContent = {
+  relatedTitle: "Veículos relacionados",
+  relatedIntro:
+    "Sugestões com marca, faixa de preço ou quilometragem parecidas com este anúncio.",
+} as const;
+
 export const financingContent = {
   title: "Facilitação Granvel",
   intro:

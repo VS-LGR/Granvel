@@ -121,3 +121,37 @@ export async function fetchPromotionVehicles(
 export function mapRowsToCards(rows: VehicleRow[]): VehicleCardData[] {
   return rows.map(toVehicleCardData);
 }
+
+function relatednessScore(current: VehicleRow, other: VehicleRow): number {
+  const brandA = current.brand.trim().toLowerCase();
+  const brandB = other.brand.trim().toLowerCase();
+  const brandBoost = brandA === brandB ? 1_000_000 : 0;
+
+  const priceDiff = Math.abs(current.price_cents - other.price_cents);
+  const maxPrice = Math.max(current.price_cents, other.price_cents, 1);
+  const priceCloseness = 100_000 * (1 - Math.min(1, priceDiff / maxPrice));
+
+  const kmDiff = Math.abs(current.mileage_km - other.mileage_km);
+  const maxKm = Math.max(current.mileage_km, other.mileage_km, 1);
+  const kmCloseness = 100_000 * (1 - Math.min(1, kmDiff / maxKm));
+
+  return brandBoost + priceCloseness + kmCloseness;
+}
+
+/** Ordena por marca (mesma primeiro), depois proximidade de preço e quilometragem. */
+export function selectRelatedVehicles(
+  current: VehicleRow,
+  published: VehicleRow[],
+  limit = 8,
+): VehicleCardData[] {
+  const others = published.filter((v) => v.id !== current.id);
+  if (others.length === 0) return [];
+
+  const scored = others.map((row) => ({
+    row,
+    score: relatednessScore(current, row),
+  }));
+  scored.sort((a, b) => b.score - a.score);
+
+  return scored.slice(0, limit).map((x) => toVehicleCardData(x.row));
+}

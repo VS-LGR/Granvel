@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { site, whatsappHref } from "@/config/site";
+import { vehicleDetailContent } from "@/config/site-content";
 import { categoryLabels, type VehicleCategory } from "@/config/filters";
 import { formatBRLFromCents, formatKm } from "@/lib/format";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { fetchVehicleBySlug } from "@/lib/vehicles/queries";
+import { fetchPublishedVehicles, fetchVehicleBySlug, selectRelatedVehicles } from "@/lib/vehicles/queries";
 import { Badge } from "@/components/ui/badge";
 import { Container } from "@/components/ui/container";
+import { RelatedVehiclesCarousel } from "@/components/sections/related-vehicles-carousel";
 import { VehicleGalleryCarousel } from "@/components/sections/vehicle-gallery-carousel";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -40,6 +42,9 @@ export default async function VehicleDetailPage({ params }: Props) {
   if (!supabase) notFound();
   const vehicle = await fetchVehicleBySlug(supabase, slug);
   if (!vehicle) notFound();
+
+  const published = await fetchPublishedVehicles(supabase);
+  const relatedVehicles = selectRelatedVehicles(vehicle, published, 8);
 
   const images = vehicle.image_urls ?? [];
   const title = `${vehicle.brand} ${vehicle.model}`;
@@ -146,6 +151,11 @@ export default async function VehicleDetailPage({ params }: Props) {
           </div>
         </div>
       </Container>
+      <RelatedVehiclesCarousel
+        vehicles={relatedVehicles}
+        title={vehicleDetailContent.relatedTitle}
+        intro={vehicleDetailContent.relatedIntro}
+      />
     </article>
   );
 }
